@@ -31,14 +31,16 @@ export default function App() {
     }
   };
 
-  const handleLookup = async () => {
-    try {
-      const res = await axios.get(`${API}/shorturls/${lookupCode}`);
-      setLookupResult(res.data);
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Shortcode not found");
-    }
-  };
+ const handleLookup = async () => {
+  try {
+    const code = lookupCode.trim().split("/").pop(); 
+    const res = await axios.get(`${API}/shorturls/${code}`);
+    setLookupResult(res.data);
+  } catch (err: any) {
+    alert(err.response?.data?.error || "Shortcode not found");
+  }
+};
+
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: 600, margin: "auto" }}>
