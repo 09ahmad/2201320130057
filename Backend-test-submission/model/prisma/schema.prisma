@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model ShortUrl {
+  id         Int      @id @default(autoincrement())
+  shortcode  String   @unique
+  originalUrl String
+  createdAt  DateTime @default(now())
+  expiry     DateTime
+  clicks     Int      @default(0)
+  clickData  Click[]
+}
+
+model Click {
+  id         Int      @id @default(autoincrement())
+  timestamp  DateTime @default(now())
+  referrer   String?
+  geo        String?
+  shortUrl   ShortUrl @relation(fields: [shortUrlId], references: [id])
+  shortUrlId Int
+}
