@@ -5,7 +5,6 @@ import { generateShortcode } from "../utils/generateShortUrl";
 import { client } from "../model/db";
 import {addMinutes , isAfter } from "date-fns"
 const app = express();
-app.use(cors());
 app.use(express.json());
 const router = express.Router();
 
